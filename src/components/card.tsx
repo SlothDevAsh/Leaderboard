@@ -1,30 +1,68 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {FC} from 'react';
 import colors from '../utils/colors';
 import dimensions from '../utils/dimensions';
 import fonts from '../utils/fonts';
+import language from '../utils/language';
 
-const Border = () => {
+type borderProps = {
+  backgroundColor?: string;
+};
+const Border: FC<borderProps> = ({backgroundColor = colors.BLACK}) => {
   return (
     <View style={styles.borderContainer}>
-      <View style={styles.borderView} />
+      <View
+        style={[
+          styles.borderView,
+          {
+            backgroundColor: backgroundColor,
+          },
+        ]}
+      />
     </View>
   );
 };
-const Card = () => {
+
+type props = {
+  name: string;
+  rank: string;
+  bananas: string;
+  highlighted?: boolean;
+};
+const Card: FC<props> = ({
+  name = language.NAME,
+  rank = language.RANK,
+  bananas = language.NO_OF_BANANAS,
+  highlighted = false,
+}) => {
   return (
     <View style={styles.parent}>
-      <View style={styles.viewContainer}>
+      <View
+        style={[
+          styles.viewContainer,
+          {
+            backgroundColor: highlighted ? colors.GOLD : colors.DARK_GRAY,
+          },
+        ]}>
         <View
           style={[
             styles.textContainer,
             {
-              flex: 0.35,
+              flex: 0.4,
             },
           ]}>
-          <Text style={styles.text}>Name</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                textAlign: 'center',
+                color: highlighted ? colors.WHITE : colors.BLACK,
+              },
+            ]}>
+            {name}
+          </Text>
         </View>
-        <Border />
+        <Border backgroundColor={highlighted ? colors.WHITE : colors.BLACK} />
         <View
           style={[
             styles.textContainer,
@@ -32,9 +70,17 @@ const Card = () => {
               flex: 0.25,
             },
           ]}>
-          <Text style={styles.text}>Rank</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: highlighted ? colors.WHITE : colors.BLACK,
+              },
+            ]}>
+            {rank}
+          </Text>
         </View>
-        <Border />
+        <Border backgroundColor={highlighted ? colors.WHITE : colors.BLACK} />
         <View
           style={[
             styles.textContainer,
@@ -42,7 +88,15 @@ const Card = () => {
               flex: 0.35,
             },
           ]}>
-          <Text style={styles.text}>No. of Bananas</Text>
+          <Text
+            style={[
+              styles.text,
+              {
+                color: highlighted ? colors.WHITE : colors.BLACK,
+              },
+            ]}>
+            {bananas}
+          </Text>
         </View>
       </View>
     </View>
@@ -58,7 +112,6 @@ const styles = StyleSheet.create({
     marginVertical: dimensions.yScale(10),
   },
   viewContainer: {
-    backgroundColor: colors.DARK_GRAY,
     flexDirection: 'row',
     borderRadius: 5,
     height: dimensions.yScale(30),
@@ -70,7 +123,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: fonts.SEMI_BOLD,
-    color: colors.BLACK,
     fontSize: dimensions.fontSize.sm,
   },
   borderContainer: {
@@ -80,8 +132,6 @@ const styles = StyleSheet.create({
   borderView: {
     height: dimensions.yScale(20),
     width: 2,
-    borderRadius: 1,
-    borderColor: colors.BLACK,
-    backgroundColor: colors.BLACK,
+    borderRadius: 10,
   },
 });

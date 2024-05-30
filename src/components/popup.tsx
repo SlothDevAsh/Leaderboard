@@ -1,24 +1,57 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {FC} from 'react';
 import Modal from 'react-native-modal';
 import colors from '../utils/colors';
 import dimensions from '../utils/dimensions';
 import language from '../utils/language';
 import fonts from '../utils/fonts';
 import {PopUpButton} from './button';
+import {SortType} from '../utils/types';
 
-const PopUp = () => {
+type props = {
+  isVisible: boolean;
+  selectedOption: SortType;
+  handleButtonPress: (value: SortType) => void;
+  toggle: () => void;
+};
+const PopUp: FC<props> = ({
+  isVisible,
+  selectedOption,
+  handleButtonPress,
+  toggle,
+}) => {
   return (
-    <Modal>
+    <Modal
+      isVisible={isVisible}
+      useNativeDriver
+      onBackButtonPress={toggle}
+      onBackdropPress={toggle}
+      animationIn={'slideInUp'}>
       <View style={styles.modal}>
         <View style={styles.headingContainer}>
           <Text style={styles.headingText}>{language.SORT_BY}</Text>
         </View>
+
         <View style={styles.buttonContainer}>
-          <PopUpButton text={language.NAME} backgroundColor={colors.GOLD} />
+          <PopUpButton
+            text={language.NAME}
+            backgroundColor={
+              selectedOption === 'name' ? colors.GOLD : colors.DARK_GRAY
+            }
+            handlePress={() => {
+              handleButtonPress('name');
+            }}
+          />
           <PopUpButton
             text={language.LOWEST_RANK}
-            backgroundColor={colors.DARK_GRAY}
+            backgroundColor={
+              selectedOption === 'lowest_ranked'
+                ? colors.GOLD
+                : colors.DARK_GRAY
+            }
+            handlePress={() => {
+              handleButtonPress('lowest_ranked');
+            }}
           />
         </View>
       </View>

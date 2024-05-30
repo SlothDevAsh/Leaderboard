@@ -6,42 +6,57 @@ import dimensions from '../utils/dimensions';
 import fonts from '../utils/fonts';
 import {SORT_ICON} from '../utils/icons';
 
-const GoButton = () => {
+type goProps = {
+  disabled: boolean;
+  handlePress: () => void;
+};
+const GoButton: FC<goProps> = ({handlePress, disabled}) => {
   return (
-    <View style={styles.goButtonContainer}>
-      <TouchableOpacity activeOpacity={0.5}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={handlePress}
+      disabled={disabled}>
+      <View style={styles.goButtonContainer}>
         <Text style={styles.goButtonText}>{language.GO}</Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
-const SortButton = () => {
+type sortProps = {
+  disabled: boolean;
+  handlePress: () => void;
+};
+const SortButton: FC<sortProps> = ({handlePress, disabled}) => {
   return (
-    <View style={styles.sortButtonContainer}>
-      <TouchableOpacity activeOpacity={0.5}>
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={handlePress}
+      disabled={disabled}>
+      <View style={styles.sortButtonContainer}>
         <Image source={SORT_ICON} style={styles.sortButtonIcon} />
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const PopUpButton: FC<{
   text: string;
   backgroundColor: string;
-}> = ({text, backgroundColor}) => {
+  handlePress: () => void;
+}> = ({text, backgroundColor, handlePress}) => {
   return (
-    <View
-      style={[
-        styles.popUpButtonContainer,
-        {
-          backgroundColor: backgroundColor,
-        },
-      ]}>
-      <TouchableOpacity activeOpacity={0.5}>
+    <TouchableOpacity activeOpacity={0.5} onPress={handlePress}>
+      <View
+        style={[
+          styles.popUpButtonContainer,
+          {
+            backgroundColor: backgroundColor,
+          },
+        ]}>
         <Text style={styles.popUpButtonText}>{text}</Text>
-      </TouchableOpacity>
-    </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 

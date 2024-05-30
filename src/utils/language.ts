@@ -1,3 +1,5 @@
+import {SortType} from './types';
+
 const language = {
   LEADER_BORDER: 'Leader Board',
   GO: 'Go',
@@ -6,6 +8,14 @@ const language = {
   LOWEST_RANK: 'Lowest Rank',
   RANK: 'Rank',
   NO_OF_BANANAS: 'No. of Bananas',
+  SEARCH_USERS: 'Search users',
+  START_SEARCHING: 'Start searching now',
+  NO_RESULT:
+    'This user name does not exist! Please specify an existing user name!',
+  SORTED_BY: (value: SortType) =>
+    `Sorting by ${
+      value === 'name' ? 'name in alphabetical order.' : 'lowest rank.'
+    }`,
 };
 
 export default language;

@@ -1,11 +1,16 @@
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
-import React from 'react';
+import React, {FC} from 'react';
 import {SEARCH_ICON} from '../utils/icons';
 import dimensions from '../utils/dimensions';
 import colors from '../utils/colors';
 import fonts from '../utils/fonts';
+import language from '../utils/language';
 
-const Search = () => {
+type props = {
+  input: string;
+  onChange: (value: string) => void;
+};
+const Search: FC<props> = ({input, onChange}) => {
   return (
     <View style={styles.parent}>
       <View style={styles.iconContainer}>
@@ -14,8 +19,10 @@ const Search = () => {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
+          value={input}
+          onChangeText={onChange}
           placeholderTextColor={colors.BLACK}
-          placeholder="Search users"
+          placeholder={language.SEARCH_USERS}
         />
       </View>
     </View>
