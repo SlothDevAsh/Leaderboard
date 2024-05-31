@@ -137,7 +137,7 @@ const HomeScreen = () => {
         />
       </View>
 
-      {sortBy !== '' && users.length > 0 && !isSearching && (
+      {users.length > 0 && !isSearching && (
         <View style={styles.sortTextContainer}>
           <Text style={styles.sortText}>{language.SORTED_BY(sortBy)}</Text>
         </View>

@@ -14,9 +14,13 @@ const language = {
     'This user name does not exist! Please specify an existing user name!',
   SORTED_BY: (value: SortType) =>
     `Sorting by ${
-      value === 'name' ? 'name in alphabetical order.' : 'lowest rank.'
+      value === 'name'
+        ? 'name in alphabetical order.'
+        : value === 'lowest_ranked'
+        ? 'lowest rank.'
+        : 'highest rank.'
     }`,
-    FUZZY_SEARCH: 'Fuzzy Search: ',
+  FUZZY_SEARCH: 'Fuzzy Search: ',
 };
 
 export default language;
