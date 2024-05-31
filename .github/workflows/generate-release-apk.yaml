@@ -1,6 +1,7 @@
 name: Generate Release APK and Upload to GitHub Releases
 
-on: workflow_dispatch: # This adds a manual trigger
+on: 
+  workflow_dispatch: # This adds a manual trigger
 
 
 jobs:
