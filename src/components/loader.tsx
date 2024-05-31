@@ -5,7 +5,7 @@ import colors from '../utils/colors';
 const Loader = () => {
   return (
     <View style={styles.parent}>
-      <ActivityIndicator size={'small'} color={colors.BRIGHT_GRAY} />
+      <ActivityIndicator size={25} color={colors.BRIGHT_GRAY} />
     </View>
   );
 };
@@ -13,5 +13,9 @@ const Loader = () => {
 export default Loader;
 
 const styles = StyleSheet.create({
-  parent: {},
+  parent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });

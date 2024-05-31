@@ -30,13 +30,12 @@ export const isSortType = (payload: any): payload is SortType => {
   );
 };
 
-// Helper functions
 export const getTop10Users = (users: UserType[]): UserType[] => {
   // sort users with highest bananas
-  const sortedUsers = [...users].sort((a, b) => b.bananas - a.bananas);
-  return sortedUsers
-    .slice(0, 10)
-    .map((user, index) => ({...user, rank: getUserRank(sortedUsers, user)}));
+  const sortedUsers = [...users]
+    .sort((a, b) => b.bananas - a.bananas)
+    .slice(0, 10);
+  return addRankToEachUser(sortedUsers);
 };
 
 export const getUserRank = (users: UserType[], user: UserType): number => {
@@ -90,4 +89,11 @@ export const sortByName = (users: UserType[]): UserType[] => {
   });
 
   return _users;
+};
+
+export const addRankToEachUser = (users: UserType[]): UserType[] => {
+  return users.map((user, index) => ({
+    ...user,
+    rank: getUserRank(users, user),
+  }));
 };

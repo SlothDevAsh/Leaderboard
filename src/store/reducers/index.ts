@@ -11,6 +11,7 @@ import {
   sortByLowestRank,
   sortByName,
   sortByMostBananas,
+  addRankToEachUser,
 } from '../../utils/helper';
 import {actions} from '../actions';
 
@@ -47,9 +48,7 @@ export const userReducer = (
             return {
               ...state,
               users: [],
-              isSearching: false,
               searchedUser: undefined,
-              isSearchCompleted: true,
             };
           }
 
@@ -86,8 +85,6 @@ export const userReducer = (
               ...state,
               users: _newUsers,
               searchedUser: searchedUser,
-              isSearchCompleted: true,
-              isSearching: false,
             };
           }
 
@@ -95,8 +92,6 @@ export const userReducer = (
             ...state,
             users: top10Users,
             searchedUser: searchedUser,
-            isSearchCompleted: true,
-            isSearching: false,
           };
         }
 
@@ -105,19 +100,12 @@ export const userReducer = (
           user.name.toLowerCase().includes(query),
         );
 
-        const sortedUsers = filteredUsers
-          .sort((a, b) => b.bananas - a.bananas)
-          .map((user, index) => ({
-            ...user,
-            rank: getUserRank(filteredUsers, user),
-          }));
+        const sortedUsers = sortByMostBananas(filteredUsers);
 
         return {
           ...state,
-          users: sortedUsers,
+          users: addRankToEachUser(sortedUsers),
           searchedUser: undefined,
-          isSearchCompleted: true,
-          isSearching: false,
         };
       }
 
@@ -133,6 +121,7 @@ export const userReducer = (
             ...state,
             users: _users,
             isSearching: false,
+            isSearchCompleted: true,
           };
         }
 
@@ -143,6 +132,7 @@ export const userReducer = (
             ...state,
             users: _users,
             isSearching: false,
+            isSearchCompleted: true,
           };
         }
 
@@ -152,12 +142,14 @@ export const userReducer = (
             ...state,
             users: _users,
             isSearching: false,
+            isSearchCompleted: true,
           };
         }
 
         return {
           ...state,
           isSearching: false,
+          isSearchCompleted: true,
         };
       }
 

@@ -15,7 +15,13 @@ const ListEmpty = () => {
 
 const NoSearchResult = () => {
   return (
-    <View style={styles.parent}>
+    <View
+      style={[
+        styles.parent,
+        {
+          marginHorizontal: dimensions.xscale(14),
+        },
+      ]}>
       <Text style={styles.text}>{language.NO_RESULT}</Text>
     </View>
   );

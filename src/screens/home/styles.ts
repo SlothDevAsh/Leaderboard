@@ -12,6 +12,18 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
   },
+  fuzzyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginRight: dimensions.xscale(3),
+    marginBottom: dimensions.yScale(10),
+  },
+  fuzzyText: {
+    color: colors.BRIGHT_GRAY,
+    fontSize: dimensions.fontSize.sm,
+    fontFamily: fonts.MEDIUM,
+  },
   sortButtonContainer: {
     alignItems: 'flex-end',
     marginTop: dimensions.yScale(10),

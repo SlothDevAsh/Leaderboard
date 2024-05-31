@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   Keyboard,
+  Switch,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import dimensions from '../../utils/dimensions';
@@ -17,9 +18,9 @@ import Search from '../../components/search';
 import Header from '../../components/header';
 import {useDispatch, useSelector} from 'react-redux';
 import {
-  actions,
   searchUser,
   setInput,
+  setIsFuzzySearch,
   setIsSearchCompleted,
   setIsSearching,
   setPopUp,
@@ -45,6 +46,8 @@ const HomeScreen = () => {
 
   const isSearching = useSelector((state: StoreState) => state.isSearching);
 
+  const isFuzzySearch = useSelector((state: StoreState) => state.isFuzzySearch);
+
   const isSearchCompleted = useSelector(
     (state: StoreState) => state.isSearchCompleted,
   );
@@ -52,7 +55,6 @@ const HomeScreen = () => {
   const handleText = (value: string) => {
     dispatch(setInput(value));
 
-    // make the search completed to false
     dispatch(setIsSearchCompleted(false));
   };
 
@@ -63,7 +65,14 @@ const HomeScreen = () => {
     // set loading to true
     dispatch(setIsSearching(true));
 
-    dispatch(searchUser());
+    // halt for 0.5 seconds
+    setTimeout(() => {
+      // search users
+      dispatch(searchUser());
+
+      // sort them
+      dispatch(sortUsers(sortBy));
+    }, 500);
   };
 
   const handleSortButtonPress = () => {
@@ -75,20 +84,44 @@ const HomeScreen = () => {
   };
 
   const handleSortOptionPress = (value: SortType) => {
+    // set searching to true
+    dispatch(setIsSearching(true));
+
+    // set sort by value
     dispatch(setSortBy(value));
     // close the popup
     dispatch(setPopUp(false));
 
-    // set searching to true
-    dispatch(setIsSearching(true));
+    // halt for 0.5 seconds
+    setTimeout(() => {
+      // sort users
+      dispatch(sortUsers(value));
+    }, 500);
+  };
 
-    // search users again
-    dispatch(sortUsers(value));
+  const handleSwitch = (value: boolean) => {
+    dispatch(setIsFuzzySearch(value));
   };
 
   return (
     <SafeAreaView style={styles.parent}>
       <Header />
+
+      <View style={styles.fuzzyContainer}>
+        <Text style={styles.fuzzyText}>{language.FUZZY_SEARCH}</Text>
+        <Switch
+          thumbColor={isFuzzySearch ? colors.WHITE : colors.WHITE}
+          trackColor={{
+            false: colors.DARK_GRAY,
+            true: colors.GOLD,
+          }}
+          value={isFuzzySearch}
+          onValueChange={value => {
+            handleSwitch(value);
+          }}
+        />
+      </View>
+
       <View style={styles.searchContainer}>
         <Search input={searchInput} onChange={handleText} />
         <GoButton
@@ -96,6 +129,7 @@ const HomeScreen = () => {
           disabled={searchInput === ''}
         />
       </View>
+
       <View style={styles.sortButtonContainer}>
         <SortButton
           handlePress={handleSortButtonPress}
@@ -103,18 +137,9 @@ const HomeScreen = () => {
         />
       </View>
 
-      {sortBy !== '' && users.length > 0 && (
+      {sortBy !== '' && users.length > 0 && !isSearching && (
         <View style={styles.sortTextContainer}>
           <Text style={styles.sortText}>{language.SORTED_BY(sortBy)}</Text>
-        </View>
-      )}
-      {users.length > 0 && (
-        <View style={styles.cardContainer}>
-          <Card
-            name={language.NAME}
-            rank={language.RANK}
-            bananas={language.NO_OF_BANANAS}
-          />
         </View>
       )}
 
@@ -122,6 +147,14 @@ const HomeScreen = () => {
         <Loader />
       ) : users.length > 0 ? (
         <View style={styles.scroll}>
+          <View style={styles.cardContainer}>
+            <Card
+              name={language.NAME}
+              rank={language.RANK}
+              bananas={language.NO_OF_BANANAS}
+            />
+          </View>
+
           <FlatList
             data={users}
             keyboardShouldPersistTaps={'never'}

@@ -9,13 +9,14 @@ const language = {
   RANK: 'Rank',
   NO_OF_BANANAS: 'No. of Bananas',
   SEARCH_USERS: 'Search users',
-  START_SEARCHING: 'Start searching now',
+  START_SEARCHING: 'Press "Go" to start searching now',
   NO_RESULT:
     'This user name does not exist! Please specify an existing user name!',
   SORTED_BY: (value: SortType) =>
     `Sorting by ${
       value === 'name' ? 'name in alphabetical order.' : 'lowest rank.'
     }`,
+    FUZZY_SEARCH: 'Fuzzy Search: ',
 };
 
 export default language;
