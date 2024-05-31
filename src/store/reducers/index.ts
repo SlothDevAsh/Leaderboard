@@ -20,7 +20,7 @@ const initialState: StoreState = {
   searchedUser: undefined, // The specific user that matches the search criteria from the dataset
   isSearching: false, // A boolean indicating whether a search operation is currently in progress
   isSearchCompleted: false, // A boolean indicating if the search operation has finished, useful to display a message if no search results are found
-  isFuzzySearch: true, // A boolean to enable or disable fuzzy search functionality
+  isFuzzySearch: false, // A boolean to enable or disable fuzzy search functionality
   sortBy: '', // The criteria for sorting the users list, can be either 'name' or 'lowest rank'
   showPopUp: false, // A boolean to control the visibility of a popup; true if the popup should be displayed
 };
