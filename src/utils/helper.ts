@@ -78,10 +78,8 @@ export const sortByLowestRank = (users: UserType[]): UserType[] => {
   return _users;
 };
 
-export const sortByHighestRank = (users: UserType[]): UserType[] => {
-  const _users = users.sort((a, b) => {
-    return a.rank - b.rank || a.name.localeCompare(b.name);
-  });
+export const sortByMostBananas = (users: UserType[]): UserType[] => {
+  const _users = users.sort((a, b) => b.bananas - a.bananas);
 
   return _users;
 };

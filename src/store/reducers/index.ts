@@ -10,19 +10,19 @@ import {
   replaceSearchedUserWithLastRankedUser,
   sortByLowestRank,
   sortByName,
-  sortByHighestRank,
+  sortByMostBananas,
 } from '../../utils/helper';
 import {actions} from '../actions';
 
 const initialState: StoreState = {
-  users: [],
-  searchInput: '',
-  searchedUser: undefined,
-  isSearching: false,
-  isSearchCompleted: false,
-  isFuzzySearch: true,
-  sortBy: '',
-  showPopUp: false,
+  users: [], // The list of users to be displayed when a user searches for a user in the search box
+  searchInput: '', // The text currently being typed in the search box by the user
+  searchedUser: undefined, // The specific user that matches the search criteria from the dataset
+  isSearching: false, // A boolean indicating whether a search operation is currently in progress
+  isSearchCompleted: false, // A boolean indicating if the search operation has finished, useful to display a message if no search results are found
+  isFuzzySearch: true, // A boolean to enable or disable fuzzy search functionality
+  sortBy: '', // The criteria for sorting the users list, can be either 'name' or 'lowest rank'
+  showPopUp: false, // A boolean to control the visibility of a popup; true if the popup should be displayed
 };
 
 export const userReducer = (
@@ -105,14 +105,12 @@ export const userReducer = (
           user.name.toLowerCase().includes(query),
         );
 
-        const sortAndGetUserRanks = filteredUsers
+        const sortedUsers = filteredUsers
           .sort((a, b) => b.bananas - a.bananas)
           .map((user, index) => ({
             ...user,
             rank: getUserRank(filteredUsers, user),
           }));
-
-        const sortedUsers = sortByHighestRank(sortAndGetUserRanks);
 
         return {
           ...state,
@@ -141,6 +139,15 @@ export const userReducer = (
         if (sortBy === 'name') {
           const _users = sortByName(state.users);
 
+          return {
+            ...state,
+            users: _users,
+            isSearching: false,
+          };
+        }
+
+        if (sortBy === '') {
+          const _users = sortByMostBananas(state.users);
           return {
             ...state,
             users: _users,

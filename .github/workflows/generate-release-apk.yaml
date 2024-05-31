@@ -1,0 +1,84 @@
+name: Generate Release APK and Upload to GitHub Releases
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch: # This adds a manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Uninstall dependencies
+        run: npm uninstall -g
+
+      - name: Install dependencies
+        run: npm i --force
+
+      - name: Build APK
+        run: npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+      - name: Remove duplicate resources
+        run: |
+          rm -rf ./android/app/src/main/res/drawable-*
+          rm -rf ./android/app/src/main/res/raw
+
+      - name: Generate release APK
+        run: cd android && chmod +x ./gradlew && ./gradlew clean &&  ./gradlew assembleRelease
+ 
+      - name: Remove previous artifacts  
+        run: |
+          echo "Getting artifact ID"
+          ARTIFACT_ID=$(curl -s -X GET \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/artifacts" | jq -r '.artifacts | map(select(.name == "release-apk"))[0] | .id')
+          if [[ ! -z "$ARTIFACT_ID" ]]; then
+            echo "Deleting artifact ID: $ARTIFACT_ID"
+            curl -s -X DELETE \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID"
+          else
+            echo "No previous artifact found"
+          fi
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-apk
+          path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.1
+          release_name: Release v1.0.1
+          draft: false
+          prerelease: false
+
+      - name: Upload APK to Release
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: android/app/build/outputs/apk/release/app-release.apk
+          asset_name: app-release.apk
+          asset_content_type: application/vnd.android.package-archive

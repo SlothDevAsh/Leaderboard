@@ -39,7 +39,8 @@ const PopUp: FC<props> = ({
               selectedOption === 'name' ? colors.GOLD : colors.DARK_GRAY
             }
             handlePress={() => {
-              handleButtonPress('name');
+              // if sort by is already name, then make it empty
+              handleButtonPress(selectedOption === 'name' ? '' : 'name');
             }}
           />
           <PopUpButton
@@ -50,7 +51,10 @@ const PopUp: FC<props> = ({
                 : colors.DARK_GRAY
             }
             handlePress={() => {
-              handleButtonPress('lowest_ranked');
+              // if sort by is already lowest_rank, then make it empty
+              handleButtonPress(
+                selectedOption === 'lowest_ranked' ? '' : 'lowest_ranked',
+              );
             }}
           />
         </View>
