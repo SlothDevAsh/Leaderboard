@@ -1,7 +1,7 @@
 import {SortType} from './types';
 
 const language = {
-  LEADER_BORDER: 'Leader Board',
+  LEADER_BORDER: 'Leaderboard',
   GO: 'Go',
   SORT_BY: 'Sort By',
   NAME: 'Name',
