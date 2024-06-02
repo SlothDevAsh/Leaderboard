@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {FC} from 'react';
+import React, {FC, memo} from 'react';
 import colors from '../utils/colors';
 import dimensions from '../utils/dimensions';
 import fonts from '../utils/fonts';
@@ -103,7 +103,7 @@ const Card: FC<props> = ({
   );
 };
 
-export default Card;
+export default memo(Card);
 
 const styles = StyleSheet.create({
   parent: {

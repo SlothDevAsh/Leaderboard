@@ -37,12 +37,11 @@ const styles = StyleSheet.create({
     fontSize: dimensions.fontSize.sm,
     fontFamily: fonts.MEDIUM,
   },
-  cardContainer: {
+  cardHeader: {
     marginVertical: dimensions.yScale(13),
   },
   scroll: {
     flex: 1,
-    // backgroundColor: 'orange',
   },
 });
 

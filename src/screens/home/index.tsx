@@ -137,17 +137,15 @@ const HomeScreen = () => {
         />
       </View>
 
-      {users.length > 0 && !isSearching && (
-        <View style={styles.sortTextContainer}>
-          <Text style={styles.sortText}>{language.SORTED_BY(sortBy)}</Text>
-        </View>
-      )}
-
       {isSearching ? (
         <Loader />
       ) : users.length > 0 ? (
         <View style={styles.scroll}>
-          <View style={styles.cardContainer}>
+          <View style={styles.sortTextContainer}>
+            <Text style={styles.sortText}>{language.SORTED_BY(sortBy)}</Text>
+          </View>
+
+          <View style={styles.cardHeader}>
             <Card
               name={language.NAME}
               rank={language.RANK}

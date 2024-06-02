@@ -15,7 +15,7 @@ import {
 } from '../../utils/helper';
 import {actions} from '../actions';
 
-const initialState: StoreState = {
+export const initialState: StoreState = {
   users: [], // The list of users to be displayed when a user searches for a user in the search box
   searchInput: '', // The text currently being typed in the search box by the user
   searchedUser: undefined, // The specific user that matches the search criteria from the dataset
@@ -26,7 +26,7 @@ const initialState: StoreState = {
   showPopUp: false, // A boolean to control the visibility of a popup; true if the popup should be displayed
 };
 
-export const userReducer = (
+export const reducer = (
   state: StoreState = initialState,
   action: UserAction,
 ): StoreState => {
