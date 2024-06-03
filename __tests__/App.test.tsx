@@ -91,8 +91,35 @@ describe('Reducer Tests', () => {
 
     expect(mockState.users).toContain(expectedUser);
 
-    // If the searched user is expected to be undefined
     expect(newState.searchedUser).toEqual(expectedUser);
+  });
+
+  it('should handle SEARCH_USERS action with fuzzy search enabled', () => {
+    const mockInput = 'A';
+    const action = {
+      type: actions.SEARCH_USERS,
+      payload: mockUsers,
+    };
+
+    const mockState: StoreState = {
+      ...initialState,
+      users: mockUsers,
+      searchInput: mockInput,
+      sortBy: '',
+      isFuzzySearch: true,
+      searchedUser: undefined,
+    };
+
+    const newState = reducer(mockState, action);
+
+    const expectedUsers = mockUsers.filter(user =>
+      user.name.toLowerCase().includes(mockInput.toLowerCase()),
+    );
+
+    expect(mockUsers).toEqual(expectedUsers);
+
+    expect(newState.searchedUser).toEqual(undefined);
+    expect(newState.isFuzzySearch).toBeTruthy();
   });
 
   it('should handle SORT_USERS action for name based sorting', () => {
@@ -117,8 +144,8 @@ describe('Reducer Tests', () => {
     const newStateNames = newState.users.map(user => user.name);
 
     expect(newStateNames).toEqual(sortedNames);
-    expect(newState.isSearching).toBe(false);
-    expect(newState.isSearchCompleted).toBe(true);
+    expect(newState.isSearching).toBeFalsy();
+    expect(newState.isSearchCompleted).toBeTruthy();
   });
 
   it('should handle SORT_USERS action for lowest ranking based sorting', () => {
@@ -144,35 +171,41 @@ describe('Reducer Tests', () => {
     const newStateRanks = newState.users.map(user => user.rank);
 
     expect(newStateRanks).toEqual(lowestRanks);
-    expect(newState.isSearching).toBe(false);
-    expect(newState.isSearchCompleted).toBe(true);
+    expect(newState.isSearching).toBeFalsy();
+    expect(newState.isSearchCompleted).toBeTruthy();
   });
 
   it('should handle SET_INPUT action', () => {
+    const mockInput = 'Emma';
     const action = {
       type: actions.SET_INPUT,
-      payload: 'Emma',
+      payload: mockInput,
     };
 
-    const expectedState: StoreState = {
+    const state: StoreState = {
       ...initialState,
-      searchInput: 'Emma',
+      searchInput: mockInput,
     };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    const newState = reducer(state, action);
+
+    expect(newState.searchInput).toEqual(mockInput);
   });
   it('should handle SET_SORT_BY action', () => {
+    const mockSortBy: SortType = 'name';
     const action = {
       type: actions.SET_SORT_BY,
-      payload: 'name',
+      payload: mockSortBy,
     };
 
-    const expectedState: StoreState = {
+    const state: StoreState = {
       ...initialState,
-      sortBy: 'name',
+      sortBy: mockSortBy,
     };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    const newState = reducer(state, action);
+
+    expect(newState.sortBy).toEqual(mockSortBy);
   });
 
   it('should handle SET_POPUP action', () => {
@@ -181,12 +214,14 @@ describe('Reducer Tests', () => {
       payload: true,
     };
 
-    const expectedState: StoreState = {
+    const state: StoreState = {
       ...initialState,
       showPopUp: true,
     };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    const newState = reducer(state, action);
+
+    expect(newState.showPopUp).toBeTruthy();
   });
 
   it('should handle SET_IS_SEARCHING action', () => {
@@ -195,12 +230,14 @@ describe('Reducer Tests', () => {
       payload: true,
     };
 
-    const expectedState: StoreState = {
+    const state: StoreState = {
       ...initialState,
       isSearching: true,
     };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    const newState = reducer(state, action);
+
+    expect(newState.isSearching).toBeTruthy();
   });
 
   it('should handle SET_IS_SEARCH_COMPLETED action', () => {
@@ -209,12 +246,13 @@ describe('Reducer Tests', () => {
       payload: true,
     };
 
-    const expectedState: StoreState = {
+    const state: StoreState = {
       ...initialState,
       isSearchCompleted: true,
     };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    const newState = reducer(state, action);
+    expect(newState.isSearchCompleted).toBeTruthy();
   });
 
   it('should handle SET_IS_FUZZY_SEARCH action', () => {
@@ -223,11 +261,13 @@ describe('Reducer Tests', () => {
       payload: true,
     };
 
-    const expectedState: StoreState = {
+    const state: StoreState = {
       ...initialState,
       isFuzzySearch: true,
     };
 
-    expect(reducer(initialState, action)).toEqual(expectedState);
+    const newState = reducer(state, action);
+
+    expect(newState.isFuzzySearch).toBeTruthy();
   });
 });

@@ -100,6 +100,7 @@ export const reducer = (
           user.name.toLowerCase().includes(query),
         );
 
+        // sort by highest ranking
         const sortedUsers = sortByMostBananas(filteredUsers);
 
         return {
