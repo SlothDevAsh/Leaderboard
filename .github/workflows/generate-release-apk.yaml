@@ -1,8 +1,7 @@
 name: Generate Release APK and Upload to GitHub Releases
 
-on: 
+on:
   workflow_dispatch: # This adds a manual trigger
-
 
 jobs:
   build:
@@ -39,8 +38,8 @@ jobs:
 
       - name: Generate release APK
         run: cd android && chmod +x ./gradlew && ./gradlew clean &&  ./gradlew assembleRelease
- 
-      - name: Remove previous artifacts  
+
+      - name: Remove previous artifacts
         run: |
           echo "Getting artifact ID"
           ARTIFACT_ID=$(curl -s -X GET \
@@ -61,25 +60,3 @@ jobs:
         with:
           name: release-apk
           path: android/app/build/outputs/apk/release/app-release.apk
-
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v1.0.1
-          release_name: Release v1.0.1
-          draft: false
-          prerelease: false
-
-      - name: Upload APK to Release
-        id: upload_release_asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: android/app/build/outputs/apk/release/app-release.apk
-          asset_name: app-release.apk
-          asset_content_type: application/vnd.android.package-archive
