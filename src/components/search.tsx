@@ -23,6 +23,7 @@ const Search: FC<props> = ({input, onChange}) => {
           onChangeText={onChange}
           placeholderTextColor={colors.BLACK}
           placeholder={language.SEARCH_USERS}
+          keyboardType={'default'}
         />
       </View>
     </View>

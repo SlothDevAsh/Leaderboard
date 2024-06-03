@@ -1,9 +1,16 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useEffect} from 'react';
 import colors from '../utils/colors';
 import dimensions from '../utils/dimensions';
 import fonts from '../utils/fonts';
 import language from '../utils/language';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+  interpolateColor,
+} from 'react-native-reanimated';
 
 type borderProps = {
   backgroundColor?: string;
@@ -35,15 +42,32 @@ const Card: FC<props> = ({
   bananas = language.NO_OF_BANANAS,
   highlighted = false,
 }) => {
+  const opacity = useSharedValue(1);
+
+  // when highlighted, oscillate opacity value repeatedly with 0.5 seconds duration
+  useEffect(() => {
+    if (highlighted) {
+      opacity.value = withRepeat(withTiming(0.5, {duration: 500}), -1, true);
+    }
+  }, [highlighted]);
+
+  // animated styles
+  const viewStyles = useAnimatedStyle(() => {
+    const backgroundColor = interpolateColor(
+      opacity.value,
+      [0.5, 1],
+      [colors.BACKGROUND, colors.GOLD],
+    );
+
+    return {
+      opacity: opacity.value,
+      backgroundColor: highlighted ? backgroundColor : colors.DARK_GRAY,
+    };
+  });
+
   return (
     <View style={styles.parent}>
-      <View
-        style={[
-          styles.viewContainer,
-          {
-            backgroundColor: highlighted ? colors.GOLD : colors.DARK_GRAY,
-          },
-        ]}>
+      <Animated.View style={[styles.viewContainer, viewStyles]}>
         <View
           style={[
             styles.textContainer,
@@ -51,7 +75,7 @@ const Card: FC<props> = ({
               flex: 0.4,
             },
           ]}>
-          <Text
+          <Animated.Text
             style={[
               styles.text,
               {
@@ -60,7 +84,7 @@ const Card: FC<props> = ({
               },
             ]}>
             {name}
-          </Text>
+          </Animated.Text>
         </View>
         <Border backgroundColor={highlighted ? colors.WHITE : colors.BLACK} />
         <View
@@ -98,7 +122,7 @@ const Card: FC<props> = ({
             {bananas}
           </Text>
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
 };

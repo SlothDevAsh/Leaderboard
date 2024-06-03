@@ -35,7 +35,7 @@ export const reducer = (
       if (isUserTypeArray(action.payload)) {
         const _users = action.payload;
 
-        const query = state.searchInput.toLowerCase();
+        const query = state.searchInput.trim().toLowerCase();
 
         // if fuzzy search is turned off
         if (!state.isFuzzySearch) {

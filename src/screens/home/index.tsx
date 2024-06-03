@@ -156,6 +156,7 @@ const HomeScreen = () => {
           <FlatList
             data={users}
             keyboardShouldPersistTaps={'never'}
+            initialNumToRender={10}
             renderItem={({item, index}: {item: UserType; index: number}) => (
               <Card
                 name={item.name}
