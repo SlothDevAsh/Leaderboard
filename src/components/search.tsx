@@ -1,10 +1,10 @@
 import {Image, StyleSheet, Text, TextInput, View} from 'react-native';
 import React, {FC} from 'react';
-import {SEARCH_ICON} from '../utils/icons';
-import dimensions from '../utils/dimensions';
-import colors from '../utils/colors';
-import fonts from '../utils/fonts';
-import language from '../utils/language';
+import {SEARCH_ICON} from '@utils/icons';
+import dimensions from '@utils/dimensions';
+import colors from '@utils/colors';
+import fonts from '@utils/fonts';
+import language from '@utils/language';
 
 type props = {
   input: string;

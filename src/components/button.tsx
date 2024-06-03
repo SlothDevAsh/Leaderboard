@@ -1,10 +1,10 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
-import language from '../utils/language';
-import colors from '../utils/colors';
-import dimensions from '../utils/dimensions';
-import fonts from '../utils/fonts';
-import {SORT_ICON} from '../utils/icons';
+import language from '@utils/language';
+import colors from '@utils/colors';
+import dimensions from '@utils/dimensions';
+import fonts from '@utils/fonts';
+import {SORT_ICON} from '@utils/icons';
 
 type goProps = {
   disabled: boolean;

@@ -1,9 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {FC, memo, useEffect} from 'react';
-import colors from '../utils/colors';
-import dimensions from '../utils/dimensions';
-import fonts from '../utils/fonts';
-import language from '../utils/language';
+import colors from '@utils/colors';
+import dimensions from '@utils/dimensions';
+import fonts from '@utils/fonts';
+import language from '@utils/language';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,

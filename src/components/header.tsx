@@ -1,9 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import language from '../utils/language';
-import fonts from '../utils/fonts';
-import colors from '../utils/colors';
-import dimensions from '../utils/dimensions';
+import language from '@utils/language';
+import fonts from '@utils/fonts';
+import colors from '@utils/colors';
+import dimensions from '@utils/dimensions';
 
 const Header = () => {
   return (

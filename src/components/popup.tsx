@@ -1,12 +1,12 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {FC} from 'react';
 import Modal from 'react-native-modal';
-import colors from '../utils/colors';
-import dimensions from '../utils/dimensions';
-import language from '../utils/language';
-import fonts from '../utils/fonts';
+import colors from '@utils/colors';
+import dimensions from '@utils/dimensions';
+import language from '@utils/language';
+import fonts from '@utils/fonts';
 import {PopUpButton} from './button';
-import {SortType} from '../utils/types';
+import {SortType} from '@utils/types';
 
 type props = {
   isVisible: boolean;

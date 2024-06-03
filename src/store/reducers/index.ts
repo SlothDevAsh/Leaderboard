@@ -1,5 +1,4 @@
-import {StoreState, UserAction, UserType} from '../../utils/types';
-
+import {StoreState, UserAction, UserType} from '@utils/types';
 import {
   getTop10Users,
   getUserRank,
@@ -12,8 +11,8 @@ import {
   sortByName,
   sortByMostBananas,
   addRankToEachUser,
-} from '../../utils/helper';
-import {actions} from '../actions';
+} from '@utils/helper';
+import {actions} from '@store/actions';
 
 export const initialState: StoreState = {
   users: [], // The list of users to be displayed when a user searches for a user in the search box

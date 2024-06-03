@@ -5,13 +5,13 @@ import {
   SetSortBy,
   SortType,
   UserType,
-} from '../../utils/types';
+} from '@utils/types';
 import {
   SearchUserAction,
   SetIsSearching,
   SetSearchInput,
   SortUsersAction,
-} from '../../utils/types';
+} from '@utils/types';
 
 export const actions = {
   SEARCH_USERS: 'SEARCH_USERS',
@@ -25,9 +25,7 @@ export const actions = {
 };
 
 export const searchUser = (): SearchUserAction => {
-  const users: UserType[] = Object.values(
-    require('../../data/leaderboard.json'),
-  );
+  const users: UserType[] = Object.values(require('@data/leaderboard.json'));
 
   return {
     type: actions.SEARCH_USERS,

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import Screens from './src/screens';
+import Screens from '@screens/index';
 import {Provider} from 'react-redux';
-import store from './src/store';
+import store from '@store/index';
 import SplashScreen from 'react-native-splash-screen';
 
 function App(): React.JSX.Element {

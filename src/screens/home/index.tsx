@@ -1,21 +1,18 @@
 import {
   SafeAreaView,
-  ScrollView,
-  StyleSheet,
   Text,
   View,
   FlatList,
   Keyboard,
   Switch,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import dimensions from '../../utils/dimensions';
-import colors from '../../utils/colors';
-import PopUp from '../../components/popup';
-import Card from '../../components/card';
-import {GoButton, SortButton} from '../../components/button';
-import Search from '../../components/search';
-import Header from '../../components/header';
+import React from 'react';
+import colors from '@utils/colors';
+import PopUp from '@components/popup';
+import Card from '@components/card';
+import {GoButton, SortButton} from '@components/button';
+import Search from '@components/search';
+import Header from '@components/header';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   searchUser,
@@ -26,13 +23,13 @@ import {
   setPopUp,
   setSortBy,
   sortUsers,
-} from '../../store/actions';
-import {SortType, StoreState} from '../../utils/types';
-import language from '../../utils/language';
-import {UserType} from '../../utils/types';
-import {ListEmpty, NoSearchResult} from '../../components/empty';
+} from '@store/actions';
+import {SortType, StoreState} from '@utils/types';
+import language from '@utils/language';
+import {UserType} from '@utils/types';
+import {ListEmpty, NoSearchResult} from '@components/empty';
 import styles from './styles';
-import Loader from '../../components/loader';
+import Loader from '@components/loader';
 
 const HomeScreen = () => {
   const dispatch: any = useDispatch();

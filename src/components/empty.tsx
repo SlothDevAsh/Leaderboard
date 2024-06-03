@@ -1,9 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import language from '../utils/language';
-import dimensions from '../utils/dimensions';
-import colors from '../utils/colors';
-import fonts from '../utils/fonts';
+import language from '@utils/language';
+import dimensions from '@utils/dimensions';
+import colors from '@utils/colors';
+import fonts from '@utils/fonts';
 
 const ListEmpty = () => {
   return (

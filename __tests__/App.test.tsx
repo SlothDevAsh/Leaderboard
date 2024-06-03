@@ -7,9 +7,9 @@ import {it} from '@jest/globals';
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
-import {SortType, StoreState, UserType} from '../src/utils/types';
-import {actions} from '../src/store/actions';
-import {initialState, reducer} from '../src/store/reducers';
+import {SortType, StoreState, UserType} from '@utils/types';
+import {actions} from '@store/actions';
+import {initialState, reducer} from '@store/reducers';
 
 const mockUsers: UserType[] = [
   {
