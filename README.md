@@ -20,6 +20,9 @@ Leaderboard comes packed with a variety of features to simplify your life:
 ## Demo
 
 Check out a live demo of Leaderboard in action:
+
+<br>
+
 [![Leaderboard Demo](https://img.youtube.com/vi/Z8KVLUiXFvQ/0.jpg)](https://www.youtube.com/shorts/Z8KVLUiXFvQ?si=L3kdP6HdyKX7ftq-)
 
 
