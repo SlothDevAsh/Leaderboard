@@ -21,6 +21,8 @@ Leaderboard comes packed with a variety of features to simplify your life:
 
 Check out a live demo of Leaderboard in action:
 [![Leaderboard Demo](https://img.youtube.com/vi/Z8KVLUiXFvQ/0.jpg)](https://www.youtube.com/shorts/Z8KVLUiXFvQ?si=L3kdP6HdyKX7ftq-)
+
+
 You can watch the demo video [here](https://www.youtube.com/shorts/Z8KVLUiXFvQ?si=L3kdP6HdyKX7ftq-).
 
 ---
